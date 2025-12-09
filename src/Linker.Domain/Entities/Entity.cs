@@ -6,17 +6,17 @@ public abstract class Entity
 
     public Entity()
     {
-        Id = Guid.NewGuid();
+        Id = Guid.NewGuid().ToString()[..8];
         _errors = [];
     }
 
-    public Entity(Guid id)
+    public Entity(string id)
     {
         Id = id;
         _errors = [];
     }
 
-    public Guid Id { get; }
+    public string Id { get; }
 
     public abstract void Validate();
 
