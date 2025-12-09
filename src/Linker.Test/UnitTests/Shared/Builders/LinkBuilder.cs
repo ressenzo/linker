@@ -6,14 +6,14 @@ internal class LinkBuilder : BaseBuilder<Link>
 {
     private string? _name;
     private string? _url;
-    private readonly Guid _userId;
+    private string? _userId;
 
     public LinkBuilder()
     {
         var faker = new Faker();
         _name = faker.Lorem.Word();
         _url = faker.Internet.Url();
-        _userId = Guid.NewGuid();
+        _userId = faker.Random.String(length: 8);
     }
 
     public LinkBuilder WithName(string? name)
@@ -28,6 +28,12 @@ internal class LinkBuilder : BaseBuilder<Link>
         return this;
     }
 
+    public LinkBuilder WithUserId(string? userId)
+    {
+        _userId = userId;
+        return this;
+    }
+
     public override Link Build() =>
-        new(_name!, _url!, _userId);
+        new(_name!, _url!, _userId!);
 }
