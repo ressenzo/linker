@@ -56,7 +56,7 @@ public class CreateLinkUseCaseTests
     }
 
     [Fact]
-    public async Task ShouldCreateLink_WhenValuesAreValid()
+    public async Task ShouldCreateLinkAndReturnSuccess_WhenValuesAreValid()
     {
         // Arrange
         _linkRepository
