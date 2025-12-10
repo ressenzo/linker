@@ -1,3 +1,4 @@
+using Linker.Link.Application.Commons;
 using Linker.Link.Application.GetLinksByUserId;
 using Linker.Link.Application.Repositories;
 using Linker.Link.Domain.Entities;
@@ -36,6 +37,10 @@ public class GetLinksByUserIdUseCaseTests
         result.IsSuccess.ShouldBeFalse();
         result.Errors.ShouldHaveSingleItem();
         result.Errors.First().ShouldBe("User ID cannot be null or empty");
+        _linkRepository.Verify(r => r.GetLinks(
+                userId!,
+                It.IsAny<CancellationToken>()),
+            Times.Never);
     }
 
     [Fact]
@@ -58,6 +63,10 @@ public class GetLinksByUserIdUseCaseTests
         result.IsSuccess.ShouldBeFalse();
         result.Errors.ShouldHaveSingleItem();
         result.Errors.First().ShouldBe("No links found for the user");
+        _linkRepository.Verify(r => r.GetLinks(
+                userId,
+                It.IsAny<CancellationToken>()),
+            Times.Once);
     }
 
     [Fact]
@@ -79,6 +88,10 @@ public class GetLinksByUserIdUseCaseTests
         // Assert
         result.IsSuccess.ShouldBeFalse();
         result.Errors.First().ShouldBe("No links found for the user");
+        _linkRepository.Verify(r => r.GetLinks(
+                userId,
+                It.IsAny<CancellationToken>()),
+            Times.Once);
     }
 
     [Fact]
@@ -95,7 +108,6 @@ public class GetLinksByUserIdUseCaseTests
                 userId,
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(links);
-        var linksResult = new GetLinksByUserIdResult(links);
 
         // Act
         var result = await _useCase.GetLinksByUserId(
@@ -105,6 +117,7 @@ public class GetLinksByUserIdUseCaseTests
         // Assert
         result.IsSuccess.ShouldBeTrue();
         result.Content.ShouldNotBeNull();
+        var linksResult = new GetLinksByUserIdResult(links);
         result.Content.ShouldBeEquivalentTo(linksResult);
     }
 
@@ -126,6 +139,7 @@ public class GetLinksByUserIdUseCaseTests
 
         // Assert
         result.IsSuccess.ShouldBeFalse();
+        result.ResultType.ShouldBe(ResultType.INTERNAL_ERROR);
         _linkRepository.Verify(r => r.GetLinks(
                 userId,
                 It.IsAny<CancellationToken>()),
