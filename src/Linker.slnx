@@ -1,7 +1,0 @@
-<Solution>
-  <Project Path="Linker.Api/Linker.Api.csproj" />
-  <Project Path="Linker.Application/Linker.Application.csproj" />
-  <Project Path="Linker.Domain/Linker.Domain.csproj" />
-  <Project Path="Linker.Infrastructure/Linker.Infrastructure.csproj" />
-  <Project Path="Linker.Test/Linker.Test.csproj" />
-</Solution>
