@@ -1,5 +1,6 @@
 using System.Net;
 using Linker.Application.Commons;
+using Linker.Application.CreateLink;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Linker.Api.Endpoints.CreateLinkEndpoint;
@@ -21,9 +22,22 @@ internal static class CreateEndpoint
     }
 
     private static async Task<IResult> CreateLink(
-        [FromBody] CreateLinkRequest linkRequest,
+        [FromBody] CreateLinkRequest request,
+        [FromServices] ICreateLinkUseCase createLinkUseCase,
         CancellationToken cancellationToken)
     {
-        return await Task.FromResult(Results.Ok(linkRequest));
+        Application.CreateLink.CreateLinkRequest createLinkRequest = request;
+        var response = await createLinkUseCase.CreateLink(
+            createLinkRequest,
+            cancellationToken);
+        return response.ResultType switch
+        {
+            ResultType.SUCCESS => Results.Created(
+                $"/api/links/{response!.Content!.Id}",
+                response),
+            ResultType.VALIDATION_ERROR => Results.BadRequest(response),
+            ResultType.INTERNAL_ERROR => Results.InternalServerError(response),
+            _ => throw new NotImplementedException()
+        };
     }
 }
