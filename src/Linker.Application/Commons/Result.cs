@@ -1,10 +1,8 @@
 namespace Linker.Application.Commons;
 
-public sealed class Result<T> where T : class
+public class Result
 {
     private readonly List<string> _errors;
-
-    public T? Content { get; }
 
     public ResultType ResultType { get; }
 
@@ -12,15 +10,28 @@ public sealed class Result<T> where T : class
 
     public IEnumerable<string> Errors => _errors;
 
-    private Result(
-        T content,
+    protected Result(
         ResultType resultType,
         IEnumerable<string> errors)
     {
-        Content = content;
         ResultType = resultType;
         _errors = [];
         _errors.AddRange(errors);
+    }
+}
+
+public sealed class Result<T> : Result where T : class
+{
+    public T? Content { get; }
+
+    private Result(
+        T content,
+        ResultType resultType,
+        IEnumerable<string> errors) : base(
+            resultType,
+            errors)
+    {
+        Content = content;
     }
 
     public static Result<T> Success(T content) =>

@@ -1,4 +1,5 @@
 using Linker.Api.Endpoints.CreateLinkEndpoint;
+using Linker.Api.Endpoints.GetLinksByUserId;
 
 namespace Linker.Api.Endpoints;
 
@@ -10,6 +11,8 @@ internal static class LinkEndpoints
             .MapGroup("/api/links")
             .WithTags("Link");
 
-        group.MapCreateLinkEndpoint();
+        group
+            .MapCreateLinkEndpoint()
+            .MapGetLinksByUserIdEndpoint();
     }
 }

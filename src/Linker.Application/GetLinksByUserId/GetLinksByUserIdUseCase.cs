@@ -10,7 +10,7 @@ internal sealed class GetLinksByUserIdUseCase(
     ILinkRepository linkRepository
 ) : IGetLinksByUserIdUseCase
 {
-    public async Task<Result<IEnumerable<Link>>> GetLinksByUserId(
+    public async Task<Result<GetLinksByUserIdResult>> GetLinksByUserId(
         string userId,
         CancellationToken cancellationToken)
     {
@@ -19,7 +19,7 @@ internal sealed class GetLinksByUserIdUseCase(
             if (string.IsNullOrWhiteSpace(userId))
             {
                 logger.LogInformation($"{nameof(userId)} is null or empty");
-                return Result<IEnumerable<Link>>
+                return Result<GetLinksByUserIdResult>
                     .ValidationError(["User ID cannot be null or empty"]);
             }
 
@@ -30,12 +30,13 @@ internal sealed class GetLinksByUserIdUseCase(
             if (links == null || !links.Any())
             {
                 logger.LogInformation("No links found for the user");
-                return Result<IEnumerable<Link>>
+                return Result<GetLinksByUserIdResult>
                     .NotFound("No links found for the user");
             }
 
-            return Result<IEnumerable<Link>>
-                .Success(links);
+            var result = new GetLinksByUserIdResult(links);
+            return Result<GetLinksByUserIdResult>
+                .Success(result);
         }
         catch (Exception exception)
         {
@@ -43,7 +44,7 @@ internal sealed class GetLinksByUserIdUseCase(
                 exception,
                 "Error: {Message}",
                 exception.Message);
-            return Result<IEnumerable<Link>>
+            return Result<GetLinksByUserIdResult>
                 .InternalError();
         }
     }

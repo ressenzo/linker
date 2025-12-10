@@ -95,6 +95,7 @@ public class GetLinksByUserIdUseCaseTests
                 userId,
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(links);
+        var linksResult = new GetLinksByUserIdResult(links);
 
         // Act
         var result = await _useCase.GetLinksByUserId(
@@ -103,7 +104,8 @@ public class GetLinksByUserIdUseCaseTests
 
         // Assert
         result.IsSuccess.ShouldBeTrue();
-        result.Content.ShouldBe(links);
+        result.Content.ShouldNotBeNull();
+        result.Content.ShouldBeEquivalentTo(linksResult);
     }
 
     [Fact]
