@@ -4,7 +4,7 @@ namespace Linker.Test.UnitTests.Domain.Entities;
 
 public class EntityTest
 {
-    private const string FAKE_ERROR = $"{nameof(FakeEntity.Name)} can not be empty";
+    private const string FAKE_ERROR = $"{nameof(FakeEntity.Name)} cannot be empty";
 
     [Fact]
     public void ShouldAddError()
