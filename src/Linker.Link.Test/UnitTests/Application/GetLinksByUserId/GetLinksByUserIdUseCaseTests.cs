@@ -120,29 +120,4 @@ public class GetLinksByUserIdUseCaseTests
         var linksResult = new GetLinksByUserIdResult(links);
         result.Content.ShouldBeEquivalentTo(linksResult);
     }
-
-    [Fact]
-    public async Task ShouldReturnInternalError_WhenRepositoryThrows()
-    {
-        // Arrange
-        var userId = "12345678";
-        _linkRepository
-            .Setup(x => x.GetLinks(
-                userId,
-                It.IsAny<CancellationToken>()))
-            .ThrowsAsync(new Exception("repo failure"));
-
-        // Act
-        var result = await _useCase.GetLinksByUserId(
-            userId,
-            CancellationToken.None);
-
-        // Assert
-        result.IsSuccess.ShouldBeFalse();
-        result.ResultType.ShouldBe(ResultType.INTERNAL_ERROR);
-        _linkRepository.Verify(r => r.GetLinks(
-                userId,
-                It.IsAny<CancellationToken>()),
-            Times.Once);
-    }
 }

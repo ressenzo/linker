@@ -65,24 +65,6 @@ public class GetLinkByIdUseCaseTests
     }
 
     [Fact]
-    public async Task ShouldReturnInternalError_WhenRepositoryThrows()
-    {
-        // Arrange
-        var id = "error-id";
-        _linkRepository
-            .Setup(x => x.GetById(id, CancellationToken.None))
-            .ThrowsAsync(new Exception("Database error"));
-
-        // Act
-        var result = await _useCase.GetLinkById(id, CancellationToken.None);
-
-        // Assert
-        result.IsSuccess.ShouldBeFalse();
-        result.IsSuccess.ShouldBeFalse();
-        result.ResultType.ShouldBe(ResultType.INTERNAL_ERROR);
-    }
-
-    [Fact]
     public async Task GetLinkById_WithValidId_ShouldReturnSuccess()
     {
         // Arrange

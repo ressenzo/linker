@@ -1,4 +1,5 @@
 using Linker.Link.Api.Endpoints;
+using Linker.Link.Api.Middlewares;
 using Linker.Link.Application;
 using Linker.Link.Infrastructure;
 
@@ -12,6 +13,7 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

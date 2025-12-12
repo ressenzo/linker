@@ -11,32 +11,22 @@ internal sealed class CreateLinkUseCase(
 {
     public async Task<Result<CreateLinkResult>> CreateLink(
         CreateLinkRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken
+    )
     {
-        try
-        {
-            Domain.Entities.Link link = request;
-            link.Validate();
+        Domain.Entities.Link link = request;
+        link.Validate();
 
-            if (!link.IsValid)
-            {
-                logger.LogError("Link validation failed: {Errors}", new string("aaa"));
-                return Result<CreateLinkResult>.ValidationError(link.Errors);
-            }
-
-            await linkRepository.CreateLink(
-                link,
-                cancellationToken);
-            CreateLinkResult result = link;
-            return Result<CreateLinkResult>.Success(result);
-        }
-        catch (Exception exception)
+        if (!link.IsValid)
         {
-            logger.LogError(
-                exception,
-                "Error: {Message}",
-                exception.Message);
-            return Result<CreateLinkResult>.InternalError();
+            logger.LogError("Link validation failed: {Errors}", new string("aaa"));
+            return Result<CreateLinkResult>.ValidationError(link.Errors);
         }
+
+        await linkRepository.CreateLink(
+            link,
+            cancellationToken);
+        CreateLinkResult result = link;
+        return Result<CreateLinkResult>.Success(result);
     }
 }

@@ -42,11 +42,6 @@ public sealed class Result<T> : Result where T : class
 
     public static Result<T> NotFound(string message) =>
         new(content: null!, ResultType.NOT_FOUND, errors: [message]);
-
-    public static Result<T> InternalError() =>
-        new(content: null!, ResultType.INTERNAL_ERROR, errors: [
-            "Something went wrong. Try again!"
-        ]);
 }
 
 public enum ResultType

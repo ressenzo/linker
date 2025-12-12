@@ -14,38 +14,26 @@ internal sealed class GetLinksByUserIdUseCase(
         string userId,
         CancellationToken cancellationToken)
     {
-        try
+        if (string.IsNullOrWhiteSpace(userId))
         {
-            if (string.IsNullOrWhiteSpace(userId))
-            {
-                logger.LogInformation($"{nameof(userId)} is null or empty");
-                return Result<GetLinksByUserIdResult>
-                    .ValidationError(["User ID cannot be null or empty"]);
-            }
-
-            var links = await linkRepository.GetLinks(
-                userId,
-                cancellationToken);
-
-            if (links == null || !links.Any())
-            {
-                logger.LogInformation("No links found for the user");
-                return Result<GetLinksByUserIdResult>
-                    .NotFound("No links found for the user");
-            }
-
-            var result = new GetLinksByUserIdResult(links);
+            logger.LogInformation($"{nameof(userId)} is null or empty");
             return Result<GetLinksByUserIdResult>
-                .Success(result);
+                .ValidationError(["User ID cannot be null or empty"]);
         }
-        catch (Exception exception)
+
+        var links = await linkRepository.GetLinks(
+            userId,
+            cancellationToken);
+
+        if (links == null || !links.Any())
         {
-            logger.LogError(
-                exception,
-                "Error: {Message}",
-                exception.Message);
+            logger.LogInformation("No links found for the user");
             return Result<GetLinksByUserIdResult>
-                .InternalError();
+                .NotFound("No links found for the user");
         }
+
+        var result = new GetLinksByUserIdResult(links);
+        return Result<GetLinksByUserIdResult>
+            .Success(result);
     }
 }

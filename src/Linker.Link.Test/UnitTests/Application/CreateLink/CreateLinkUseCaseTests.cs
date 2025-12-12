@@ -104,28 +104,4 @@ public class CreateLinkUseCaseTests
                 It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
             Times.Never);
     }
-
-    [Fact]
-    public async Task ShouldReturnInternalError_WhenRepositoryThrows()
-    {
-        // Arrange
-        _linkRepository
-            .Setup(r => r.CreateLink(
-                It.IsAny<Link.Domain.Entities.Link>(),
-                It.IsAny<CancellationToken>()))
-            .ThrowsAsync(new Exception("repo failure"));
-
-        var request = new CreateLinkRequestBuilder()
-            .Build();
-
-        // Act
-        var result = await _useCase.CreateLink(request, CancellationToken.None);
-
-        // Assert
-        result.IsSuccess.ShouldBeFalse();
-        _linkRepository.Verify(r => r.CreateLink(
-                It.IsAny<Link.Domain.Entities.Link>(),
-                It.IsAny<CancellationToken>()),
-            Times.Once);
-    }
 }
