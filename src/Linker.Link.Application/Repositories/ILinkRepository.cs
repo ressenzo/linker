@@ -13,4 +13,9 @@ public interface ILinkRepository
     Task<Domain.Entities.Link?> GetById(
         string id,
         CancellationToken cancellationToken);
+
+    Task UpdateLink(
+        Domain.Entities.Link link,
+        CancellationToken cancellationToken
+    );
 }

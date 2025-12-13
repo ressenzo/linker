@@ -27,4 +27,14 @@ internal sealed class LinkRepository : ILinkRepository
     {
         return _links.FindAll(x => x.UserId == userId);
     }
+
+    public Task UpdateLink(
+        Domain.Entities.Link link,
+        CancellationToken cancellationToken
+    )
+    {
+        var index = _links.IndexOf(link);
+        _links[index] = link;
+        return Task.CompletedTask;
+    }
 }

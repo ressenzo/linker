@@ -1,4 +1,3 @@
-using System.Net;
 using Linker.Link.Application.Commons;
 using Linker.Link.Application.GetLinksByUserId;
 using Microsoft.AspNetCore.Mvc;

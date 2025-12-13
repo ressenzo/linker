@@ -18,6 +18,15 @@ public class Result
         _errors = [];
         _errors.AddRange(errors);
     }
+
+    public static Result Success() =>
+        new(ResultType.SUCCESS, errors: []);
+
+    public static Result NotFound(string message) =>
+        new(ResultType.NOT_FOUND, errors: [message]);
+
+    public static Result ValidationError(IEnumerable<string> errors) =>
+        new(ResultType.VALIDATION_ERROR, errors);
 }
 
 public sealed class Result<T> : Result where T : class
@@ -37,10 +46,10 @@ public sealed class Result<T> : Result where T : class
     public static Result<T> Success(T content) =>
         new(content, ResultType.SUCCESS, errors: []);
 
-    public static Result<T> ValidationError(IEnumerable<string> errors) =>
+    public static new Result<T> ValidationError(IEnumerable<string> errors) =>
         new(content: null!, ResultType.VALIDATION_ERROR, errors);
 
-    public static Result<T> NotFound(string message) =>
+    public static new Result<T> NotFound(string message) =>
         new(content: null!, ResultType.NOT_FOUND, errors: [message]);
 }
 

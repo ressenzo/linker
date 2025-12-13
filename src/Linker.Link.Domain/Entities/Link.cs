@@ -8,6 +8,15 @@ public class Link(string name, string url, string userId) : Entity
 
     public string UserId { get; private set; } = userId;
 
+    public void Update(
+        string name,
+        string url
+    )
+    {
+        Name = name;
+        Url = url;
+    }
+
     public override void Validate()
     {
         if (string.IsNullOrWhiteSpace(Name))
