@@ -1,0 +1,11 @@
+.linker_navbar {
+    background-color: rgb(25, 135, 84);
+}
+
+.linker_navbar-wrapper {
+    max-width: 1000px;
+}
+
+.linker_navbar_nav-link {
+    color: #FFF;
+}

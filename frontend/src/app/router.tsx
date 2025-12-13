@@ -2,10 +2,15 @@ import {
     createBrowserRouter
 } from "react-router-dom"
 
+import {
+    MAIN_ROUTE
+} from "./constants"
+
 import { Login } from "../pages/Login/Login"
-import { Dashboard } from "../pages/Dashboard"
 import { ProtectedRoute } from "./ProtectedRoute"
 import { PublicOnlyRoute } from "./PublicOnlyRoute";
+import { Wrapper } from "../pages/Wrapper/Wrapper";
+import { Dashboard } from "../pages/Dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -17,11 +22,17 @@ export const router = createBrowserRouter([
         ),
     },
     {
-        path: "/dashboard",
+        path: MAIN_ROUTE,
         element: (
             <ProtectedRoute>
-                <Dashboard />
+                <Wrapper />
             </ProtectedRoute>
         ),
+        children: [
+            {
+                path: "dashboard",
+                element: <Dashboard />
+            }
+        ]
     },
 ]);
