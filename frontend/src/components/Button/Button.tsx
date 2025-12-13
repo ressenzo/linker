@@ -5,17 +5,15 @@ type ButtonType = {
     id: string;
     text: string;
     onClick?: () => void;
-    isFull: boolean;
+    className: string;
     disabled: boolean;
 }
 
-export function Button({ type, id, text, onClick, disabled, isFull = false }: ButtonType) {
-    const baseClass = "btn btn-success py-2";
-
+export function Button({ type, id, text, onClick, disabled, className }: ButtonType) {
     return (
         <button
             id={id}
-            className={!isFull ? baseClass : baseClass + " w-100"}
+            className={className}
             type={type}
             onClick={onClick}
             disabled={disabled}>

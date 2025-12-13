@@ -1,8 +1,11 @@
 import "./Navbar.css";
 
 import {
-    MAIN_ROUTE
+    MAIN_ROUTE,
+    CREATE_ROUTE
 } from "../../app/constants";
+import { useAuth } from "../../app/AuthContext";
+import { Button } from "../Button/Button";
 
 type NavbarType = {
     name: string;
@@ -10,9 +13,12 @@ type NavbarType = {
 }
 
 export function Navbar() {
+    const { logout } = useAuth();
+
     const navbarItems: NavbarType[] = [
         { name: "Home", url: MAIN_ROUTE },
-        { name: "Dashboard", url: "/dashboard" }
+        { name: "Dashboard", url: "/dashboard" },
+        { name: "Create", url: CREATE_ROUTE },
     ]
 
     return (
@@ -31,11 +37,21 @@ export function Navbar() {
                                 return (
                                     <li className="nav-item" key={i}>
                                         <a className="nav-link linker_navbar_nav-link" aria-current="page" href={v.url}>{v.name}</a>
-                                    </li>            
+                                    </li>
                                 );
                             })
                         }
                     </ul>
+                    <div className="d-flex">
+                        <Button
+                            className={"btn btn-sm btn-danger"}
+                            type="button"
+                            onClick={logout}
+                            id="navbar-logout"
+                            text="Logout"
+                            disabled={false}
+                        />
+                    </div>
                 </div>
             </div>
         </nav>

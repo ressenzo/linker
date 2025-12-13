@@ -60,7 +60,7 @@ export function Login() {
                         id="login-sign-in"
                         text="Sign in"
                         type="submit"
-                        isFull={true}
+                        className={"btn btn-success py-2 w-100"}
                         disabled={userName == "" || password == ""}
                     />
                 </form>
