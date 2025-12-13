@@ -1,5 +1,6 @@
 using Linker.Link.Api.Endpoints.CreateLinkEndpoint;
-using Linker.Link.Api.Endpoints.GetLinksByUserId;
+using Linker.Link.Api.Endpoints.GetLinkByIdEndpoint;
+using Linker.Link.Api.Endpoints.GetLinksByUserIdEndpoint;
 
 namespace Linker.Link.Api.Endpoints;
 
@@ -13,6 +14,7 @@ internal static class LinkEndpoints
 
         group
             .MapCreateLinkEndpoint()
-            .MapGetLinksByUserIdEndpoint();
+            .MapGetLinksByUserIdEndpoint()
+            .MapGetLinkByIdEndpoint();
     }
 }

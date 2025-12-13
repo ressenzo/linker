@@ -1,4 +1,3 @@
-using System.Net;
 using Linker.Link.Application.Commons;
 using Linker.Link.Application.CreateLink;
 using Microsoft.AspNetCore.Mvc;
@@ -15,8 +14,9 @@ internal static class CreateEndpoint
             .WithDisplayName("Create Link")
             .WithSummary("Create new link to user")
             .WithName("CreateLink")
-            .Produces<Result<CreateLinkResponse>>((int)HttpStatusCode.Created)
-            .Produces<Result>((int)HttpStatusCode.BadRequest);
+            .Produces<Result<CreateLinkResult>>(StatusCodes.Status201Created)
+            .Produces<Result>(StatusCodes.Status400BadRequest)
+            .Produces<Result>(StatusCodes.Status500InternalServerError);
 
         return group;
     }
@@ -30,7 +30,8 @@ internal static class CreateEndpoint
             .ToApplicationRequest();
         var response = await createLinkUseCase.CreateLink(
             createLinkRequest,
-            cancellationToken);
+            cancellationToken
+        );
         return response.ResultType switch
         {
             ResultType.SUCCESS => Results.Created(

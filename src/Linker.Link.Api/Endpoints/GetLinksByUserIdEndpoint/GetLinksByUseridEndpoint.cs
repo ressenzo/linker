@@ -3,7 +3,7 @@ using Linker.Link.Application.Commons;
 using Linker.Link.Application.GetLinksByUserId;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Linker.Link.Api.Endpoints.GetLinksByUserId;
+namespace Linker.Link.Api.Endpoints.GetLinksByUserIdEndpoint;
 
 internal static class CreateEndpoint
 {
@@ -15,9 +15,10 @@ internal static class CreateEndpoint
             .WithDisplayName("Get Links By User Id")
             .WithSummary("Get all links from user")
             .WithName("GetLinksByUserId")
-            .Produces<Result<GetLinksByUserIdResult>>((int)HttpStatusCode.OK)
-            .Produces<Result>((int)HttpStatusCode.BadRequest)
-            .Produces<Result>((int)HttpStatusCode.NotFound);
+            .Produces<Result<GetLinksByUserIdResult>>(StatusCodes.Status200OK)
+            .Produces<Result>(StatusCodes.Status400BadRequest)
+            .Produces<Result>(StatusCodes.Status404NotFound)
+            .Produces<Result>(StatusCodes.Status500InternalServerError);
 
         return group;
     }
@@ -33,8 +34,8 @@ internal static class CreateEndpoint
         return response.ResultType switch
         {
             ResultType.SUCCESS => Results.Ok(response),
-            ResultType.NOT_FOUND => Results.NotFound(response),
             ResultType.VALIDATION_ERROR => Results.BadRequest(response),
+            ResultType.NOT_FOUND => Results.NotFound(response),
             ResultType.INTERNAL_ERROR => Results.InternalServerError(response),
             _ => throw new NotImplementedException()
         };
