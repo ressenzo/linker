@@ -1,0 +1,4 @@
+.linker_input:focus {
+    box-shadow: none;
+    border: 1.5px solid rgb(25, 135, 84);
+}
