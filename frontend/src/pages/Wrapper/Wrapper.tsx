@@ -7,7 +7,7 @@ export function Wrapper() {
         <>
             <Navbar />
             <div className="container linker_wrapper">
-                <main className="linker_wrapper-main  mt-4">
+                <main className="linker_wrapper-main mt-4">
                     <Outlet />
                 </main >
             </div>

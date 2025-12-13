@@ -11,6 +11,7 @@ import { ProtectedRoute } from "./ProtectedRoute"
 import { PublicOnlyRoute } from "./PublicOnlyRoute";
 import { Wrapper } from "../pages/Wrapper/Wrapper";
 import { Dashboard } from "../pages/Dashboard";
+import { Create } from "../pages/Wrapper/Create/Create";
 
 export const router = createBrowserRouter([
     {
@@ -32,7 +33,11 @@ export const router = createBrowserRouter([
             {
                 path: "dashboard",
                 element: <Dashboard />
-            }
+            },
+            {
+                path: "create",
+                element: <Create />
+            },
         ]
     },
 ]);

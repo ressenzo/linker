@@ -18,7 +18,7 @@ export function Navbar() {
     const navbarItems: NavbarType[] = [
         { name: "Home", url: MAIN_ROUTE },
         { name: "Dashboard", url: "/dashboard" },
-        { name: "Create", url: CREATE_ROUTE },
+        { name: "Add link", url: CREATE_ROUTE },
     ]
 
     return (
