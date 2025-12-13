@@ -80,7 +80,7 @@ public class GetLinkByIdUseCaseTests
         // Assert
         result.IsSuccess.ShouldBeTrue();
         result.Content.ShouldNotBeNull();
-        GetLinkByIdResult linkResult = link;
+        var linkResult = GetLinkByIdResult.FromDomainEntity(link);
         result.Content.ShouldBeEquivalentTo(linkResult);
     }
 }

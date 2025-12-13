@@ -31,7 +31,7 @@ internal sealed class GetLinkByIdUseCase(
                 .NotFound("Link not found");
         }
 
-        GetLinkByIdResult result = link;
+        var result = GetLinkByIdResult.FromDomainEntity(link);
         return Result<GetLinkByIdResult>.Success(result);
     }
 }

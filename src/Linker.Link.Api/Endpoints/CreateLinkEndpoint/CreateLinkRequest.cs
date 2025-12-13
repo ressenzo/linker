@@ -5,10 +5,9 @@ public record CreateLinkRequest(
     string Url,
     string UserId)
 {
-    public static implicit operator Application.CreateLink.CreateLinkRequest(
-        CreateLinkRequest request) =>
+    public Application.CreateLink.CreateLinkRequest ToApplicationRequest() =>
         new(
-            request.Name,
-            request.Url,
-            request.UserId);
+            Name,
+            Url,
+            UserId);
 }

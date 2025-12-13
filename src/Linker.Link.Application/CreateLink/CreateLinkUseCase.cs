@@ -14,7 +14,7 @@ internal sealed class CreateLinkUseCase(
         CancellationToken cancellationToken
     )
     {
-        Domain.Entities.Link link = request;
+        Domain.Entities.Link link = request.ToDomainEntity();
         link.Validate();
 
         if (!link.IsValid)
@@ -26,7 +26,7 @@ internal sealed class CreateLinkUseCase(
         await linkRepository.CreateLink(
             link,
             cancellationToken);
-        CreateLinkResult result = link;
+        var result = CreateLinkResult.FromDomainEntity(link);
         return Result<CreateLinkResult>.Success(result);
     }
 }

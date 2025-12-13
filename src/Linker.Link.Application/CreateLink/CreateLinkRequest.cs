@@ -5,9 +5,9 @@ public record CreateLinkRequest(
     string Url,
     string UserId)
 {
-    public static implicit operator Domain.Entities.Link(CreateLinkRequest request) =>
+    public Domain.Entities.Link ToDomainEntity() =>
         new(
-            request.Name,
-            request.Url,
-            request.UserId);
+            Name,
+            Url,
+            UserId);
 }

@@ -26,7 +26,8 @@ internal static class CreateEndpoint
         [FromServices] ICreateLinkUseCase createLinkUseCase,
         CancellationToken cancellationToken)
     {
-        Application.CreateLink.CreateLinkRequest createLinkRequest = request;
+        Application.CreateLink.CreateLinkRequest createLinkRequest = request
+            .ToApplicationRequest();
         var response = await createLinkUseCase.CreateLink(
             createLinkRequest,
             cancellationToken);

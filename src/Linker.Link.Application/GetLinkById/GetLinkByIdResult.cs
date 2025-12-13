@@ -16,7 +16,9 @@ public record GetLinkByIdResult : LinkResult
     {
     }
 
-    public static implicit operator GetLinkByIdResult(Domain.Entities.Link link) =>
+    public static GetLinkByIdResult FromDomainEntity(
+        Domain.Entities.Link link
+    ) =>
         new(
             link.Id,
             link.Name,
