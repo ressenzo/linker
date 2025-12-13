@@ -9,7 +9,14 @@ type ButtonType = {
     disabled: boolean;
 }
 
-export function Button({ type, id, text, onClick, disabled, className }: ButtonType) {
+export function Button({
+    type,
+    id,
+    text,
+    onClick,
+    disabled,
+    className
+}: ButtonType) {
     return (
         <button
             id={id}

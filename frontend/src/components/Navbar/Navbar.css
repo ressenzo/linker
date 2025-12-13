@@ -1,5 +1,5 @@
 .linker_navbar {
-    background-color: rgb(25, 135, 84);
+    background-color: var(--color-primary);
 }
 
 .linker_navbar-wrapper {
@@ -7,5 +7,5 @@
 }
 
 .linker_navbar_nav-link {
-    color: #FFF;
+    color: var(--color-secondary);
 }

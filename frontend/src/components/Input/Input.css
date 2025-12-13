@@ -1,4 +1,8 @@
+.linker_input {
+    border: 1px solid var(--color-terciary);
+}
+
 .linker_input:focus {
     box-shadow: none;
-    border: 1.5px solid rgb(25, 135, 84);
+    border: 2px solid var(--color-primary);
 }
